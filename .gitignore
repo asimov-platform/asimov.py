@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+
+# Visual Studio Code
+.vscode/
+
+# Editor backup files
+*~
+
+# mypy artifacts
+.mypy_cache/
+
+# pytest artifacts
+.pytest_cache/
+
+# tox artifacts
+.tox/
+
+# Python object files
+__pycache__/
+*.py[cdo]
+
+# Python distutils
+build/
+
+# Python setuptools
+dist/
+*.egg-info/
