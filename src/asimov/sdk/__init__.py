@@ -6,10 +6,12 @@ import sys
 
 assert sys.version_info >= (3, 9), "The Asimov SDK for Python requires Python 3.9+"
 
+from .abi import *
 from .lib import *
 from .util import *
 
 __all__ = [
+    'abi',
     'lib',
     'util',
 ]
