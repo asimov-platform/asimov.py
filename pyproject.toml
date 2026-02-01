@@ -2,5 +2,78 @@
 # See: https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
 
 [build-system]
-requires = ["setuptools >= 61.0"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "asimov.py"
+description = "ASIMOV Software Development Kit (SDK) for Python"
+readme = "README.md"
+authors = [{ name = "ASIMOV Systems", email = "support@asimov.systems" }]
+license = "Unlicense"
+license-files = ["UNLICENSE"]
+dynamic = ["version"]
+
+requires-python = ">=3.9"
+dependencies = ["pydantic>=2"]
+
+keywords = []
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "License :: Public Domain",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries",
+]
+
+[project.optional-dependencies]
+
+[project.urls]
+Homepage = "https://asimov.sh"
+Repository = "https://github.com/asimov-platform/asimov.py"
+Changelog = "https://github.com/asimov-platform/asimov.py/blob/master/CHANGES.md"
+Releases = "https://github.com/asimov-platform/asimov.py/releases"
+Issues = "https://github.com/asimov-platform/asimov.py/issues"
+Documentation = "https://github.com/asimov-platform/asimov.py/blob/master/README.md"
+
+[dependency-groups]
+dev = []
+docs = []
+lint = ["ruff"]
+test = ["pytest", "pytest-mock"]
+
+[tool.hatch.version]
+source = "vcs"
+fallback-version = "0.0.0"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/asimov/_version.py"
+
+[tool.hatch.build.targets.sdist]
+only-include = [
+    "AUTHORS",
+    "CHANGES.md",
+    "Makefile",
+    "VERSION",
+    "src/asimov",
+]
+exclude = [".*"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/asimov"]
+
+[tool.hatch.envs.default]
+installer = "uv"
+
+[tool.mypy]
+disallow_untyped_defs = true
+
+[tool.uv]
+default-groups = ["dev", "docs"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
