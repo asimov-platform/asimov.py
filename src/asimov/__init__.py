@@ -4,6 +4,4 @@
 
 import sys
 
-assert sys.version_info >= (3, 9), "ASIMOV.py requires Python 3.9+"
-
-from ._version import __version__, __version_tuple__
+assert sys.version_info >= (3, 10), "ASIMOV.py requires Python 3.10+"

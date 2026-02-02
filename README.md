@@ -25,13 +25,11 @@
 - Defines [flow-based] [program patterns] for refining data into knowledge.
 - Implements a [module system] enabling an ecosystem of [modules].
 - Enables dataflow systems through reusable components called blocks.
-- Supports opting out of any feature using comprehensive feature flags.
-- Adheres to the Rust API Guidelines in its [naming conventions].
 - Cuts red tape: 100% free and unencumbered public domain software.
 
 ## 🛠️ Prerequisites
 
-- [Python](https://python.org) 3.9+ (included in macOS 12.6+)
+- [Python](https://python.org) 3.10+
 
 ## ⬇️ Installation
 

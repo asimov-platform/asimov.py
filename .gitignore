@@ -38,3 +38,11 @@ dist/
 
 # MkDocs artifacts
 .cache/
+
+# Maturin artifacts
+src/asimov/*.so
+
+# Rust artifacts
+/rust-toolchain
+/rust-toolchain.toml
+/target
