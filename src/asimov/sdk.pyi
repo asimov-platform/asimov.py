@@ -2,3 +2,9 @@
 
 __version__: str
 __version_tuple__: tuple[int, int, int, str | None]
+
+class ModuleDirectory:
+    pass
+
+class StateDirectory:
+    pass

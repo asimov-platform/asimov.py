@@ -1,5 +1,7 @@
 // This is free and unencumbered software released into the public domain.
 
+//#![allow(unused)]
+
 #[pyo3::pymodule]
 mod sdk {
     use pyo3::prelude::*;
@@ -10,4 +12,13 @@ mod sdk {
         m.add("__version_tuple__", (26, 0, 0, Some("dev1")))?; // TODO
         Ok(())
     }
+
+    #[pymodule_export]
+    use super::ModuleDirectory;
+
+    #[pymodule_export]
+    use super::StateDirectory;
 }
+
+mod directory;
+use directory::*;

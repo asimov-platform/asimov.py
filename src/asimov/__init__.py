@@ -4,4 +4,6 @@
 
 import sys
 
+from .sdk import *
+
 assert sys.version_info >= (3, 10), "ASIMOV.py requires Python 3.10+"
