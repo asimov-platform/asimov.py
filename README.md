@@ -1,7 +1,7 @@
 # ASIMOV Software Development Kit (SDK) for Python
 
 [![License](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](https://unlicense.org)
-[![Compatibility](https://img.shields.io/badge/python-3.9%2B-blue)](https://endoflife.date/python)
+[![Compatibility](https://img.shields.io/badge/python-3.10%2B-blue)](https://endoflife.date/python)
 [![Package](https://img.shields.io/pypi/v/asimov.py)](https://pypi.org/project/asimov.py/)
 
 **[ASIMOV] is a polyglot development platform for
@@ -48,6 +48,8 @@ from asimov import *
 ```
 
 ## 📚 Reference
+
+[asimov.readthedocs.io](https://asimov.readthedocs.io)
 
 ## 👨‍💻 Development
 

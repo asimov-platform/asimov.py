@@ -12,7 +12,7 @@ use_directory_urls: false
 extra:
   social:
     - icon: fontawesome/brands/python
-      link: https://pypi.org/project/asimov/
+      link: https://pypi.org/project/asimov.py/
       name: ASIMOV.py on PyPI
     - icon: fontawesome/brands/github
       link: https://github.com/asimov-platform
