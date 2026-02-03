@@ -42,7 +42,14 @@ Documentation = "https://github.com/asimov-platform/asimov.py/blob/master/README
 
 [dependency-groups]
 dev = []
-docs = []
+docs = [
+    "mkdocs>=1.6",
+    "mkdocs-git-committers-plugin-2>=2.5",
+    "mkdocs-git-revision-date-localized-plugin>=1.2",
+    "mkdocs-llmstxt>=0.2",
+    "mkdocs-material[imaging]>=9.5",
+    "mkdocstrings[python]>=0.29",
+]
 lint = ["ruff"]
 test = ["pytest", "pytest-mock"]
 
