@@ -14,7 +14,13 @@ mod sdk {
     }
 
     #[pymodule_export]
+    use super::ConfigDirectory;
+
+    #[pymodule_export]
     use super::ModuleDirectory;
+
+    #[pymodule_export]
+    use super::ProgramDirectory;
 
     #[pymodule_export]
     use super::StateDirectory;

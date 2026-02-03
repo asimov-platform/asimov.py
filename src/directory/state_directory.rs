@@ -1,9 +1,9 @@
 // This is free and unencumbered software released into the public domain.
 
-use asimov_directory::fs::StateDirectory as FsStateDirectory;
+use asimov_directory::{StateDirectory as _, fs::StateDirectory as FsStateDirectory};
 use pyo3::{exceptions::PyRuntimeError, prelude::*, types::PyString};
 
-/// A state directory.
+/// A state directory stored on a file system (e.g., `$HOME/.asimov/`).
 #[pyclass(frozen, module = "asimov", str = "{0}")]
 pub struct StateDirectory(FsStateDirectory);
 
@@ -19,8 +19,23 @@ impl StateDirectory {
         Ok(Self(result))
     }
 
-    fn __repr__(slf: &Bound<'_, Self>) -> PyResult<String> {
+    pub fn __repr__(slf: &Bound<'_, Self>) -> PyResult<String> {
         let class_name: Bound<'_, PyString> = slf.get_type().qualname()?;
         Ok(format!("{}({:?})", class_name, slf.borrow().0.as_str()))
+    }
+
+    /// Checks if any configurations are available.
+    pub fn has_configs(&self) -> bool {
+        self.0.has_configs()
+    }
+
+    /// Checks if any modules are installed.
+    pub fn has_modules(&self) -> bool {
+        self.0.has_modules()
+    }
+
+    /// Checks if any programs are installed.
+    pub fn has_programs(&self) -> bool {
+        self.0.has_programs()
     }
 }

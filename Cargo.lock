@@ -33,7 +33,7 @@ dependencies = [
 [[package]]
 name = "asimov-directory"
 version = "25.1.0"
-source = "git+https://github.com/asimov-platform/asimov.rs.git#ab245c62f578a81f722bf7084a346fd65d99dcfa"
+source = "git+https://github.com/asimov-platform/asimov.rs.git#5d92a3e0c66e50405e4dc8d383d162bba6fc07cd"
 dependencies = [
  "asimov-core",
  "camino",
