@@ -1,0 +1,73 @@
+---
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: |
+          sudo apt install -y libjpeg-dev libxml2-dev libxslt-dev zlib1g-dev
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: 3.13
+          enable-cache: true
+      - run: uv sync --frozen --group lint
+
+  test:
+    runs-on: ubuntu-24.04
+    needs: lint
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", 3.11, 3.12, 3.13, 3.14]
+    steps:
+      - run: |
+          sudo apt install -y libjpeg-dev libxml2-dev libxslt-dev zlib1g-dev
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+      - run: uv sync --frozen --group lint --group test
+      - run: uv run pytest -q --import-mode=importlib
+
+  build-dev:
+    runs-on: ubuntu-24.04
+    needs: test
+    steps:
+      - run: |
+          sudo apt install -y libjpeg-dev libxml2-dev libxslt-dev zlib1g-dev
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: 3.13
+          enable-cache: true
+      - run: uv sync --frozen
+      - run: uv build
+
+  docs:
+    runs-on: ubuntu-24.04
+    needs: lint
+    steps:
+      - run: |
+          sudo apt install -y libjpeg-dev libxml2-dev libxslt-dev zlib1g-dev
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: 3.13
+          enable-cache: true
+      - run: uv sync --frozen --group docs
+      - run: uv run mkdocs build --config-file mkdocs.yaml
+        working-directory: .config

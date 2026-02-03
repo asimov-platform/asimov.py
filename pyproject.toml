@@ -51,7 +51,7 @@ docs = [
     "mkdocstrings[python]>=0.29",
 ]
 lint = ["ruff"]
-test = ["pytest", "pytest-mock"]
+test = ["pytest"]
 
 [tool.hatch.version]
 source = "vcs"
@@ -80,7 +80,7 @@ installer = "uv"
 disallow_untyped_defs = true
 
 [tool.uv]
-default-groups = ["dev", "docs"]
+default-groups = ["dev", "docs", "lint", "test"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
