@@ -5,7 +5,7 @@ use pyo3::{exceptions::PyRuntimeError, prelude::*, types::PyString};
 
 /// A program directory stored on a file system (e.g., `$HOME/.asimov/libexec/`).
 #[pyclass(frozen, module = "asimov", str = "{0}")]
-pub struct ProgramDirectory(FsProgramDirectory);
+pub struct ProgramDirectory(pub(crate) FsProgramDirectory);
 
 #[pymethods]
 impl ProgramDirectory {

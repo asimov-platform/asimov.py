@@ -5,7 +5,7 @@ use pyo3::{exceptions::PyRuntimeError, prelude::*, types::PyString};
 
 /// A module directory stored on a file system (e.g., `$HOME/.asimov/modules/`).
 #[pyclass(frozen, module = "asimov", str = "{0}")]
-pub struct ModuleDirectory(FsModuleDirectory);
+pub struct ModuleDirectory(pub(crate) FsModuleDirectory);
 
 #[pymethods]
 impl ModuleDirectory {

@@ -5,7 +5,7 @@ use pyo3::{exceptions::PyRuntimeError, prelude::*, types::PyString};
 
 /// A configuration directory stored on a file system (e.g., `$HOME/.asimov/configs/`).
 #[pyclass(frozen, module = "asimov", str = "{0}")]
-pub struct ConfigDirectory(FsConfigDirectory);
+pub struct ConfigDirectory(pub(crate) FsConfigDirectory);
 
 #[pymethods]
 impl ConfigDirectory {
