@@ -9,6 +9,19 @@ pub struct ProgramDirectory(FsProgramDirectory);
 
 #[pymethods]
 impl ProgramDirectory {
+    /// Opens the default program directory in the user's home directory.
+    ///
+    /// On Unix platforms, including macOS and Linux, this is `$HOME/.asimov/libexec/`.
+    #[staticmethod]
+    pub fn home() -> PyResult<Self> {
+        let Ok(result) = FsProgramDirectory::home() else {
+            Err(PyErr::new::<PyRuntimeError, _>(
+                "Failed to open program directory", // TODO
+            ))?
+        };
+        Ok(Self(result))
+    }
+
     #[new]
     pub fn __new__(path: &str) -> PyResult<Self> {
         let Ok(result) = FsProgramDirectory::open(path) else {

@@ -9,6 +9,19 @@ pub struct ConfigDirectory(FsConfigDirectory);
 
 #[pymethods]
 impl ConfigDirectory {
+    /// Opens the default configuration directory in the user's home directory.
+    ///
+    /// On Unix platforms, including macOS and Linux, this is `$HOME/.asimov/configs/`.
+    #[staticmethod]
+    pub fn home() -> PyResult<Self> {
+        let Ok(result) = FsConfigDirectory::home() else {
+            Err(PyErr::new::<PyRuntimeError, _>(
+                "Failed to open configuration directory", // TODO
+            ))?
+        };
+        Ok(Self(result))
+    }
+
     #[new]
     pub fn __new__(path: &str) -> PyResult<Self> {
         let Ok(result) = FsConfigDirectory::open(path) else {

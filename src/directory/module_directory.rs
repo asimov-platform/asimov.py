@@ -9,6 +9,19 @@ pub struct ModuleDirectory(FsModuleDirectory);
 
 #[pymethods]
 impl ModuleDirectory {
+    /// Opens the default module directory in the user's home directory.
+    ///
+    /// On Unix platforms, including macOS and Linux, this is `$HOME/.asimov/modules/`.
+    #[staticmethod]
+    pub fn home() -> PyResult<Self> {
+        let Ok(result) = FsModuleDirectory::home() else {
+            Err(PyErr::new::<PyRuntimeError, _>(
+                "Failed to open module directory", // TODO
+            ))?
+        };
+        Ok(Self(result))
+    }
+
     #[new]
     pub fn __new__(path: &str) -> PyResult<Self> {
         let Ok(result) = FsModuleDirectory::open(path) else {

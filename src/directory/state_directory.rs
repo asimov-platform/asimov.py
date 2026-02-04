@@ -9,6 +9,19 @@ pub struct StateDirectory(FsStateDirectory);
 
 #[pymethods]
 impl StateDirectory {
+    /// Opens the default state directory in the user's home directory.
+    ///
+    /// On Unix platforms, including macOS and Linux, this is `$HOME/.asimov/`.
+    #[staticmethod]
+    pub fn home() -> PyResult<Self> {
+        let Ok(result) = FsStateDirectory::home() else {
+            Err(PyErr::new::<PyRuntimeError, _>(
+                "Failed to open state directory", // TODO
+            ))?
+        };
+        Ok(Self(result))
+    }
+
     #[new]
     pub fn __new__(path: &str) -> PyResult<Self> {
         let Ok(result) = FsStateDirectory::open(path) else {
