@@ -1,5 +1,6 @@
 // This is free and unencumbered software released into the public domain.
 
+use super::ConfigProfile;
 use asimov_directory::fs::ConfigDirectory as FsConfigDirectory;
 use pyo3::{exceptions::PyRuntimeError, prelude::*, types::PyString};
 
@@ -35,5 +36,16 @@ impl ConfigDirectory {
     pub fn __repr__(slf: &Bound<'_, Self>) -> PyResult<String> {
         let class_name: Bound<'_, PyString> = slf.get_type().qualname()?;
         Ok(format!("{}({:?})", class_name, slf.borrow().0.as_str()))
+    }
+
+    /// Returns the default configuration profile (e.g., at
+    /// `$HOME/.asimov/configs/default/`).
+    pub fn default_profile(&self) -> PyResult<ConfigProfile> {
+        let Ok(result) = self.0.default_profile() else {
+            Err(PyErr::new::<PyRuntimeError, _>(
+                "Failed to open configuration profile", // TODO
+            ))?
+        };
+        Ok(ConfigProfile(result))
     }
 }

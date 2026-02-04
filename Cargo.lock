@@ -18,10 +18,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "asimov-config"
+version = "25.1.0"
+source = "git+https://github.com/asimov-platform/asimov.rs.git#8f2ee76dcd6bb5211f73345d6bc4bbca50abe553"
+dependencies = [
+ "asimov-core",
+]
+
+[[package]]
 name = "asimov-core"
 version = "25.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "41dcd2f71df8d505846394c26becf2d67dc738417437c41e3e799bfdb871569b"
+source = "git+https://github.com/asimov-platform/asimov.rs.git#8f2ee76dcd6bb5211f73345d6bc4bbca50abe553"
 dependencies = [
  "cap-directories",
  "cap-std",
@@ -33,17 +40,21 @@ dependencies = [
 [[package]]
 name = "asimov-directory"
 version = "25.1.0"
-source = "git+https://github.com/asimov-platform/asimov.rs.git#5d92a3e0c66e50405e4dc8d383d162bba6fc07cd"
+source = "git+https://github.com/asimov-platform/asimov.rs.git#8f2ee76dcd6bb5211f73345d6bc4bbca50abe553"
 dependencies = [
+ "asimov-config",
  "asimov-core",
  "camino",
  "derive_more",
+ "tokio",
 ]
 
 [[package]]
 name = "asimov_py"
 version = "26.0.0-dev.1"
 dependencies = [
+ "asimov-config",
+ "asimov-core",
  "asimov-directory",
  "derive_more",
  "pyo3",
@@ -1060,6 +1071,15 @@ checksum = "a5898b9e6beba8b762c95a38524d822fbf0d67ed9222e1512d3587fa5c84c1fd"
 dependencies = [
  "bon",
  "serde",
+]
+
+[[package]]
+name = "tokio"
+version = "1.49.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "72a2903cd7736441aac9df9d7688bd0ce48edccaadf181c3b90be801e81d3d86"
+dependencies = [
+ "pin-project-lite",
 ]
 
 [[package]]

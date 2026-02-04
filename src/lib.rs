@@ -9,7 +9,7 @@ mod sdk {
     #[pymodule_init]
     fn init(m: &Bound<'_, PyModule>) -> PyResult<()> {
         m.add("__version__", env!("CARGO_PKG_VERSION"))?;
-        m.add("__version_tuple__", (26, 0, 0, Some("dev1")))?; // TODO
+        m.add("__version_tuple__", (26, 0, 0, Some("dev1")))?; // TODO: 26.0.0.dev1
         Ok(())
     }
 
@@ -17,7 +17,13 @@ mod sdk {
     use super::ConfigDirectory;
 
     #[pymodule_export]
+    use super::ConfigProfile;
+
+    #[pymodule_export]
     use super::ModuleDirectory;
+
+    #[pymodule_export]
+    use super::ModuleNameIterator;
 
     #[pymodule_export]
     use super::ProgramDirectory;

@@ -17,10 +17,16 @@ unstable = []
 
 [dependencies]
 #asimov = { package = "asimov-sdk", version = "25.1", default-features = false, features = [] }
-asimov-directory = { version = "25.1", default-features = false, features = [] }
+asimov-config = { version = "25.1", default-features = false, features = [] }
+asimov-core = { version = "25.1", default-features = false, features = [] }
+asimov-directory = { version = "25.1", default-features = false, features = ["fs"] }
 derive_more = { version = "2", default-features = false, features = ["display"] }
 pyo3 = { version = "0.27", default-features = false, features = ["extension-module", "macros"] }
 
 [patch.crates-io]
+asimov-config = { git = "https://github.com/asimov-platform/asimov.rs.git" }
+asimov-core = { git = "https://github.com/asimov-platform/asimov.rs.git" }
 asimov-directory = { git = "https://github.com/asimov-platform/asimov.rs.git" }
+#asimov-config = { path = "../asimov.rs/lib/asimov-config" }
+#asimov-core = { path = "../asimov.rs/lib/asimov-core" }
 #asimov-directory = { path = "../asimov.rs/lib/asimov-directory" }
