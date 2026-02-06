@@ -70,7 +70,7 @@ impl StateDirectory {
                 "Failed to open module directory", // TODO
             ))?
         };
-        Ok(ModuleDirectory(result))
+        Ok(ModuleDirectory::from(result))
     }
 
     /// Opens the program directory under this state directory.

@@ -21,7 +21,9 @@ asimov-config = { version = "25.1", default-features = false, features = [] }
 asimov-core = { version = "25.1", default-features = false, features = [] }
 asimov-directory = { version = "25.1", default-features = false, features = ["fs"] }
 derive_more = { version = "2", default-features = false, features = ["display"] }
-pyo3 = { version = "0.27", default-features = false, features = ["extension-module", "macros"] }
+pyo3 = { version = "0.28", default-features = false, features = ["extension-module", "macros"] }
+pyo3-async-runtimes = { version = "0.28", features = ["tokio-runtime"] }
+tokio = { version = "1", default-features = false, features = ["full"] }
 
 [patch.crates-io]
 asimov-config = { git = "https://github.com/asimov-platform/asimov.rs.git" }

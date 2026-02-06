@@ -1,11 +1,20 @@
 // This is free and unencumbered software released into the public domain.
 
+use super::ModuleNameIterator;
+use crate::util::wait_for_future;
 use asimov_directory::{ModuleDirectory as _, fs::ModuleDirectory as FsModuleDirectory};
 use pyo3::{exceptions::PyRuntimeError, prelude::*, types::PyString};
+use std::sync::Arc;
 
 /// A module directory stored on a file system (e.g., `$HOME/.asimov/modules/`).
 #[pyclass(frozen, module = "asimov", str = "{0}")]
-pub struct ModuleDirectory(pub(crate) FsModuleDirectory);
+pub struct ModuleDirectory(pub(crate) Arc<FsModuleDirectory>);
+
+impl From<FsModuleDirectory> for ModuleDirectory {
+    fn from(input: FsModuleDirectory) -> Self {
+        Self(Arc::new(input))
+    }
+}
 
 #[pymethods]
 impl ModuleDirectory {
@@ -19,7 +28,7 @@ impl ModuleDirectory {
                 "Failed to open module directory", // TODO
             ))?
         };
-        Ok(Self(result))
+        Ok(Self::from(result))
     }
 
     #[new]
@@ -29,7 +38,7 @@ impl ModuleDirectory {
                 "Failed to open module directory", // TODO
             ))?
         };
-        Ok(Self(result))
+        Ok(Self::from(result))
     }
 
     pub fn __repr__(slf: &Bound<'_, Self>) -> PyResult<String> {
@@ -45,5 +54,19 @@ impl ModuleDirectory {
     /// Checks if a module is installed and enabled.
     pub fn is_enabled(&self, module_name: String) -> bool {
         self.0.is_enabled(module_name)
+    }
+
+    /// Returns an iterator over the installed modules.
+    fn __iter__(&self, py: Python) -> PyResult<ModuleNameIterator> {
+        self.__aiter__(py)
+    }
+
+    /// Returns an iterator over the installed modules.
+    fn __aiter__(&self, py: Python) -> PyResult<ModuleNameIterator> {
+        let inner = Arc::clone(&self.0);
+        wait_for_future(py, async move {
+            let it = inner.iter_installed().await.unwrap();
+            ModuleNameIterator::from(it)
+        })
     }
 }
